@@ -1,44 +1,49 @@
 import { useState } from 'react'
-import logo from './logo.svg'
 import './App.css'
+import { Layout, Menu } from 'antd';
+import { useHistory, useLocation } from 'react-router-dom';
+import 'antd/dist/antd.css';
+import ChildrenRoutes from './router';
 
-function App() {
-  const [count, setCount] = useState(0)
+const { Header, Footer, Sider, Content } = Layout;
+const { SubMenu } = Menu;
 
+function App(props) {
+  const history = useHistory();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <Layout>
+      <Header>Header</Header>
+      <Layout>
+        <Sider>
+        <Menu
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
+          mode="inline"
+          theme="dark"
+          onClick={(item) => {
+            console.log(3, item)
+            history.push(item.key)
+          }}
+        >
+          <Menu.Item key="/user">
+            用户列表
+          </Menu.Item>
+          <Menu.Item key="2">
+            Option 2
+          </Menu.Item>
+          <SubMenu key="sub1" title="Navigation One">
+            <Menu.Item key="5">Option 5</Menu.Item>
+            <Menu.Item key="6">Option 6</Menu.Item>
+            <Menu.Item key="7">Option 7</Menu.Item>
+            <Menu.Item key="8">Option 8</Menu.Item>
+          </SubMenu>
+        </Menu>
+        </Sider>
+        <Content>
+          <ChildrenRoutes />
+        </Content>
+      </Layout>
+    </Layout>
   )
 }
 
