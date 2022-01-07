@@ -10,6 +10,7 @@ const { SubMenu } = Menu;
 
 function App(props) {
   const history = useHistory();
+  console.log(333, props)
   return (
     <Layout>
       <Header>Header</Header>
